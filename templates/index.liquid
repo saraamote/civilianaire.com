@@ -1,0 +1,264 @@
+{% if settings.homepage-images %}
+
+{% if settings.display-wide %}
+{% else %}
+<div class="row">
+  <div class="desktop-12 mobile-3">
+    {% endif %}
+
+    {% if settings.homepage-display == 'video' %}
+    <div class="videoWrapper">
+      {{ settings.video-embed }}
+    </div>
+
+    {% elsif settings.homepage-display == 'slideshow' %}
+    <div class="flexslider">
+      <ul class="slides">
+        <li>
+          <a href="{{ settings.slide1_url }}">
+            <img src="{{ 'slide1.jpg' | asset_url }}" alt="{{shop.name}}" />
+            {% if settings.slide-1-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-1-content %}
+          <div class="flex-caption">
+            {% if settings.slide-1-title != blank %}<p class="title">{{ settings.slide-1-title }}</p>{% endif %}
+            {% if settings.slide-1-caption != blank %}<p class="caption">{{ settings.slide-1-caption }}</p>{% endif %}
+            {% if settings.slide-1-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide1_url }}">{{ settings.slide-1-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+
+        {% if settings.slide-2-check %}
+        <li>
+          <a href="{{ settings.slide2_url }}">
+            <img src="{{ 'slide2.jpg' | asset_url }}" alt="{{ settings.slide1_alt }}" />
+            {% if settings.slide-2-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-2-content %}
+          <div class="flex-caption">
+            {% if settings.slide-2-title != blank %}<p class="title">{{ settings.slide-2-title }}</p>{% endif %}
+            {% if settings.slide-2-caption != blank %}<p class="caption">{{ settings.slide-2-caption }}</p>{% endif %}
+            {% if settings.slide-2-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide2_url }}">{{ settings.slide-2-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-3-check %}
+        <li>
+          <a href="{{ settings.slide3_url }}">
+            <img src="{{ 'slide3.jpg' | asset_url }}" alt="{{ settings.slide2_alt }}" />
+            {% if settings.slide-3-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-3-content %}
+          <div class="flex-caption">
+            {% if settings.slide-3-title != blank %}<p class="title">{{ settings.slide-3-title }}</p>{% endif %}
+            {% if settings.slide-3-caption != blank %}<p class="caption">{{ settings.slide-3-caption }}</p>{% endif %}
+            {% if settings.slide-3-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide3_url }}">{{ settings.slide-3-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-4-check %}
+        <li>
+          <a href="{{ settings.slide4_url }}">
+            <img src="{{ 'slide4.jpg' | asset_url }}" alt="{{ settings.slide3_alt }}" />
+            {% if settings.slide-4-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-4-content %}
+          <div class="flex-caption">
+            {% if settings.slide-4-title != blank %}<p class="title">{{ settings.slide-4-title }}</p>{% endif %}
+            {% if settings.slide-4-caption != blank %}<p class="caption">{{ settings.slide-4-caption }}</p>{% endif %}
+            {% if settings.slide-4-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide4_url }}">{{ settings.slide-4-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-5-check %}
+        <li>
+          <a href="{{ settings.slide5_url }}">
+            <img src="{{ 'slide5.jpg' | asset_url }}" alt="{{ settings.slide5_alt }}" />
+            {% if settings.slide-5-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-5-content %}
+          <div class="flex-caption">
+            {% if settings.slide-5-title != blank %}<p class="title">{{ settings.slide-5-title }}</p>{% endif %}
+            {% if settings.slide-5-caption != blank %}<p class="caption">{{ settings.slide-5-caption }}</p>{% endif %}
+            {% if settings.slide-5-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide5_url }}">{{ settings.slide-5-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-6-check %}
+        <li>
+          <a href="{{ settings.slide6_url }}">
+            <img src="{{ 'slide6.jpg' | asset_url }}" alt="{{ settings.slide6_alt }}" />
+            {% if settings.slide-6-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-6-content %}
+          <div class="flex-caption">
+            {% if settings.slide-6-title != blank %}<p class="title">{{ settings.slide-6-title }}</p>{% endif %}
+            {% if settings.slide-6-caption != blank %}<p class="caption">{{ settings.slide-6-caption }}</p>{% endif %}
+            {% if settings.slide-6-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide6_url }}">{{ settings.slide-6-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-7-check %}
+        <li>
+          <a href="{{ settings.slide7_url }}">
+            <img src="{{ 'slide7.jpg' | asset_url }}" alt="{{ settings.slide7_alt }}" />
+            {% if settings.slide-7-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-7-content %}
+          <div class="flex-caption">
+            {% if settings.slide-7-title != blank %}<p class="title">{{ settings.slide-7-title }}</p>{% endif %}
+            {% if settings.slide-7-caption != blank %}<p class="caption">{{ settings.slide-7-caption }}</p>{% endif %}
+            {% if settings.slide-7-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide7_url }}">{{ settings.slide-7-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-8-check %}
+        <li>
+          <a href="{{ settings.slide8_url }}">
+            <img src="{{ 'slide8.jpg' | asset_url }}" alt="{{ settings.slide8_alt }}" />
+            {% if settings.slide-8-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-8-content %}
+          <div class="flex-caption">
+            {% if settings.slide-8-title != blank %}<p class="title">{{ settings.slide-8-title }}</p>{% endif %}
+            {% if settings.slide-8-caption != blank %}<p class="caption">{{ settings.slide-8-caption }}</p>{% endif %}
+            {% if settings.slide-8-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide8_url }}">{{ settings.slide-8-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-9-check %}
+        <li>
+          <a href="{{ settings.slide9_url }}">
+            <img src="{{ 'slide9.jpg' | asset_url }}" alt="{{ settings.slide9_alt }}" />
+            {% if settings.slide-9-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-9-content %}
+          <div class="flex-caption">
+            {% if settings.slide-9-title != blank %}<p class="title">{{ settings.slide-9-title }}</p>{% endif %}
+            {% if settings.slide-9-caption != blank %}<p class="caption">{{ settings.slide-9-caption }}</p>{% endif %}
+            {% if settings.slide-9-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide9_url }}">{{ settings.slide-9-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-10-check %}
+        <li>
+          <a href="{{ settings.slide10_url }}">
+            <img src="{{ 'slide10.jpg' | asset_url }}" alt="{{ settings.slide10_alt }}" />
+            {% if settings.slide-10-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-10-content %}
+          <div class="flex-caption">
+            {% if settings.slide-10-title != blank %}<p class="title">{{ settings.slide-10-title }}</p>{% endif %}
+            {% if settings.slide-10-caption != blank %}<p class="caption">{{ settings.slide-10-caption }}</p>{% endif %}
+            {% if settings.slide-10-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide10_url }}">{{ settings.slide-10-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-11-check %}
+        <li>
+          <a href="{{ settings.slide11_url }}">
+            <img src="{{ 'slide11.jpg' | asset_url }}" alt="{{ settings.slide11_alt }}" />
+            {% if settings.slide-11-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-11-content %}
+          <div class="flex-caption">
+            {% if settings.slide-11-title != blank %}<p class="title">{{ settings.slide-11-title }}</p>{% endif %}
+            {% if settings.slide-11-caption != blank %}<p class="caption">{{ settings.slide-11-caption }}</p>{% endif %}
+            {% if settings.slide-11-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide11_url }}">{{ settings.slide-11-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+        {% if settings.slide-12-check %}
+        <li>
+          <a href="{{ settings.slide12_url }}">
+            <img src="{{ 'slide12.jpg' | asset_url }}" alt="{{ settings.slide12_alt }}" />
+            {% if settings.slide-12-mask %}<div class="mask"></div>{% endif %}
+          </a>
+          {% if settings.slide-12-content %}
+          <div class="flex-caption">
+            {% if settings.slide-12-title != blank %}<p class="title">{{ settings.slide-12-title }}</p>{% endif %}
+            {% if settings.slide-12-caption != blank %}<p class="caption">{{ settings.slide-12-caption }}</p>{% endif %}
+            {% if settings.slide-12-button %}
+            <div class="readmore">
+              <a href="{{ settings.slide12_url }}">{{ settings.slide-12-button-text }}</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </li>
+        {% endif %}
+
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if settings.display-wide %}
+    {% else %}
+  </div>
+</div>
+{% endif %}
+{% endif %}

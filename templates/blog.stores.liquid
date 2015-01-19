@@ -1,0 +1,90 @@
+<div id="page" class="desktop-12 tablet-6 mobile-3">
+
+  <div class="clear"></div>
+
+  <div class="desktop-12 tablet-6 mobile-3">
+    <div id="article-loop">
+
+      {% for article in blog.articles  %}
+
+      <div class="article-index ie4col{% cycle ' iefirst', '', ' ielast' %}" id="article-{{ article.id }}" data-alpha="{{ article.title }}">
+
+        <div class="article-info">
+
+          <div class="article-info-inner">
+            <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+
+            <div class="article-content">
+              {% if article.excerpt == blank %}
+              {{ article.content | strip_html | truncatewords: 30 }}
+              {% else %}
+              {{ article.excerpt }}
+              {% endif %}
+            </div>
+
+            {% if article.tags.size > 0 %}
+            <p class="post-tags">Tagged:
+              {% for tag in article.tags %}
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">
+                {{ tag }}
+              </a>
+              {% endfor %}
+            </p>
+            {% endif %}
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+
+
+</div>
+
+<!--[if gte IE 9]><!-->
+<script>
+  // Three Column Collection Masonry
+  $(window).load(function () {
+    var columns = 3,
+        setColumns = function () {
+          columns = $(window).width() > 740 ? 3 : $(window).width() > 500 ? 2 : 1;
+        };
+
+    setColumns();
+    $(window).resize(setColumns);
+
+var $container = $('#page');
+// initialize Masonry after all images have loaded
+$container.imagesLoaded( function() {
+
+    $('#article-loop').masonry({
+      itemSelector: '.article-index',
+      columnWidth: function (containerWidth) {
+        return containerWidth / columns;
+      },
+      isAnimated: true,
+      animationOptions: {
+        duration: 150,
+        easing: 'linear',
+        queue: false
+      }
+    });
+
+});
+
+  });
+</script>
+
+<!--<![endif]-->
+
+
+
+
+
+
+

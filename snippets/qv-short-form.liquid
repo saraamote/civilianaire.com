@@ -1,0 +1,85 @@
+<form action="/cart/add" method="post" data-money-format="{{ shop.money_format }}" id="product-form-{{ product.id }}">
+  {% if product.options.size > 1 %}
+  <div class="select">
+    <select id="product-select-{{ product.id }}" name='id'>
+      {% for variant in product.variants %}
+      <option value="{{ variant.id }}">{{ variant.title }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% for option in product.options %}
+    {% include 'swatch' with option %}
+  {% endfor %}
+  {% elsif product.options.size == 1 and product.variants.size > 1 %}
+  <div class="select">
+    <label>{{ product.options[0] }}</label>
+    <select id="product-select-{{ product.id }}" name='id'>
+      {% for variant in product.variants %}
+      <option value="{{ variant.id }}">{{ variant.title }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% for option in product.options %}
+    {% include 'swatch' with option %}
+  {% endfor %}
+  {% else %}
+  <div class="what-is-it">
+    {% if product.options.first != 'Title' %}
+    <label>{{ product.options.first }}:</label>{% for variant in product.variants %}<span class="it-is">{{ variant.option1 | escape }}</span>{% endfor %}
+    {% endif %}
+  </div>
+  <div class="product-variants"></div><!-- product variants -->
+  <input  type="hidden" id="{{ variant.id }}" name="id" value="{{ product.variants[0].id }}" />
+  {% endif %}
+
+  {% if product.available %}
+  <div class="product-add">
+
+    <h5>QUANTITY</h5>
+
+    <a class="down" field="quantity"><i class="icon-minus"></i></a>
+    <input min="1" type="text" name="quantity" class="quantity" value="1" />
+    <a class="up" field="quantity"><i class="icon-plus"></i></a>
+
+
+    <input type="submit" name="button" class="add" value="Add to Cart" />
+  </div>
+
+  <p class="add-to-cart-msg"></p>
+  {% endif %}
+
+</form>
+
+{% if product.variants.size > 1 or product.options.size > 1 %}
+<script type="text/javascript">
+
+  $(function() {
+
+    $product = $('#product-' + {{ product.id }});
+    new Shopify.OptionSelectors("product-select-{{ product.id }}", { product: {{ product | json }}, onVariantSelected: selectCallback });
+
+	{% assign found_one_in_stock = false %}
+    {% for variant in product.variants %}
+    {% if variant.available and found_one_in_stock == false %}
+    {% assign found_one_in_stock = true %}
+    {% for option in product.options %}
+    jQuery('#product-{{ product.id }} .single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change');
+     {% endfor %}
+     {% endif %}
+     {% endfor %}
+
+    jQuery('.swatch :radio').change(function() {
+      var optionIndex = jQuery(this).parents('.swatch').attr('data-option-index');
+      var optionValue = jQuery(this).val();
+      jQuery('#product-{{ product.id }} .single-option-selector').eq(optionIndex).find('option').filter(function() { return jQuery(this).text() == optionValue }).parent().val(optionValue).trigger('change');
+    });
+
+  });
+
+</script>
+{% endif %}
+
+
+
+
+

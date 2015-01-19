@@ -1,0 +1,28 @@
+<div id="page" class="desktop-12 tablet-6 mobile-3">
+  <h1>This page is not available or no longer exists</h1>
+
+  {% comment %}
+  NOTE: If there are specific nonexistent URLs which your visitors are likely to request on a regular basis (maybe due to old links from elsewhere on the web), you can set up URL redirection by clicking on your Navigation tab and following the link in the sidebar.
+  {% endcomment %}
+
+  <p>This page does not exist. Try searching for what you would like to find:</p>
+
+  <div id="search-bar">
+    <form action="/search" method="get">
+      <h3>Search our store</h3>
+      <input type="text" name="q" id="q" placeholder="search..." />
+    </form>
+  </div>
+
+  <div style="margin-top: 20px;">
+    {% include 'collection-listing' %}
+  </div>
+
+  <div class="clear"></div>
+
+  <div id="contact404">
+    <h3 style="padding-top: 30px; margin-top: 30px; clear: left; border-top: 1px solid {{ settings.dotted_color }}">Or contact us</h3>
+    {% include 'contact' %}
+  </div>
+
+</div>

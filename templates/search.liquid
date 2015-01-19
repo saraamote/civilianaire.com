@@ -1,0 +1,99 @@
+{% paginate search.results by 24 %}
+<div id="page" class="desktop-12 tablet-6 mobile-3">
+  <h2>Search</h2>
+
+
+  <div id="search-bar">
+    <form action="/search" method="get">
+      {% if search.performed %}
+      <p>Your search for "{{ search.terms | escape }}" returned {{ search.results_count }} results</p>
+      {% endif %}
+      <input type="text" name="q" id="q" placeholder="search..." />
+    </form>
+  </div>
+</div>
+
+{% if search.performed %}
+
+<div class="desktop-12 tablet-6 mobile-3" id="four-per-row">
+  <div id="product-loop">
+    {% for item in search.results %}
+
+    <div class="product-index desktop-3 mobile-3{% cycle ' first', '', ' mlast', ' last' %}" id="prod-{{ item.id }}" data-alpha="{{ item.title }}" data-price="{{ item.price }}">
+
+      <div class="product-index-inner">
+        {% if item.available %}
+        {% for col in product.collections %}
+        {% if col.handle == 'new' %}
+        <div class="new icn">NEW IN</div>
+        {% endif %}
+        {% endfor %}
+
+        {% if item.price < item.compare_at_price %}
+        <div class="sale-item icn">SALE</div>
+        {% endif %}
+
+        {% else %}
+        <div class="so icn">SOLD</div>
+        {% endif %}
+      </div>
+
+
+      <a href="{{ item.url }}" title="{{ item.title | escape }}">
+        {{ item.featured_image | product_img_url: 'large' | img_tag }}
+      </a>
+
+
+      <div class="product-info">
+
+        <div class="product-info-inner">
+          <a href="{{ item.url }}">
+            {% if settings.vendor %}<p>{{ item.vendor }}</p>{% endif %}
+            <h3>{{ item.title }}</h3>
+          </a>
+
+          <div class="price">
+            {% if item.price < item.compare_at_price %}
+            <div class="onsale">{{ item.price | money }}</div>
+            <div class="was">{{ item.compare_at_price | money }}</div>
+            {% else %}
+            <div class="prod-price">{% if item.price_varies %} from {{ item.price_min | money }} - {{ item.price_max | money }} {% else %}{{ item.price | money }}{% endif %}</div>
+            {% endif %}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div id="pagination" class="desktop-12 tablet-6 mobile-3">
+
+  <span class="count">Showing items {{ paginate.current_offset | plus: 1 }}-{% if paginate.next %}{{ paginate.current_offset | plus: paginate.page_size }}{% else %}{{ paginate.items }}{% endif %} of {{ paginate.items }}.</span>
+  {% if paginate.previous %}
+  {{ '<' | link_to: paginate.previous.url }}
+  {% endif %}
+  {% for part in paginate.parts %}
+  {% if part.is_link %}
+  {{ part.title | link_to: part.url }}
+  {% else %}
+  {% if part.title == '&hellip;' %}
+  {{ part.title }}
+  {% else %}
+  <span class="current">{{ part.title }}</span>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  {% if paginate.next %}
+  {{ '>' | link_to: paginate.next.url }}
+  {% endif %}
+</div>
+
+{% endif %}
+
+{% endpaginate %}
+
+

@@ -1,0 +1,43 @@
+
+  <div class="product-quick-view desktop-12">
+    <div id="product-photos" class="desktop-7 mobile-3">
+
+      {% for image in product.images %}
+      {% if forloop.first %}
+      <div id="bigimage">
+        <img src="{{ image | product_img_url: 'grande' }}" alt='{{ image.alt }}' title="{{ product.title }}"/>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <div id="product-right" class="desktop-5 mobile-3">
+      <div id="product-description">
+        {% if settings.vendor %}<h3>{{ product.vendor }}</h3>{% endif %}
+        <h2>{{ product.title | escape }}</h2>
+        <p id="product-price">
+          {% if product.available %}
+          {% if product.compare_at_price > product.price %}
+          <span class="product-price" itemprop="price">{{ product.price | money }}</span>&nbsp;<span class="compare-price">{{ product.compare_at_price | money }}</span>
+          {% else %}
+          <span class="product-price" itemprop="price">{{ product.price | money }}</span>
+          {% endif %}
+          {% else %}
+          <span class="product-price" itemprop="price">Sold Out</span>
+          {% endif %}
+        </p>
+
+        {% include 'custom-short-form' %}
+
+        <div class="desc">
+          {% include 'social' with product %}
+          <a href="{{ product.url | within_collection }}" class="full-click">View Full Details</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+

@@ -1,0 +1,122 @@
+
+  <div id="page" class="desktop-12 tablet-6 mobile-3">
+    {% paginate article.comments by 20 %}
+
+    <div id="blog-article">
+      <div id="article-body">
+        <h1 class="blog-title">{{ article.title }}</h1>
+        <p class="posted">Posted: {{ article.published_at | date: "%b %d %Y" }}</p>
+
+        <div class="rte">{{ article.content }}</div>
+        {% include 'social' with article %}
+
+
+
+  <div id="product-navigation" class="desktop-12 mobile-3">
+    <div class="section-title lines"><h2>More Posts</h2></div>
+    <div id="back-forth">
+      {% if blog.previous_article %}
+      <span class="prev-prod">
+        {{ '< previous' | link_to: blog.previous_article }}
+        {% endif %}
+      </span>
+      {% if blog.next_article %}
+      <span class="next-prod">
+        {{ 'next post >' | link_to: blog.next_article }}
+      </span>
+      {% endif %}
+    </div>
+  </div>
+
+
+
+
+        {% if blog.comments_enabled? %}
+        <div id="comments">
+          <div class="section-title lines"><h2>Comments</h2></div>
+
+
+          <ul>
+            {% for comment in article.comments %}
+            <li>
+              <div class="comment-details">
+                Posted by {{ comment.author }} on {{ comment.created_at | date: "%B %d, %Y" }}
+              </div>
+              <div class="gravatar desktop-1 mobile-1">
+                <img src="http://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}" />
+              </div>
+              <div class="comment desktop-11 mobile-2">
+                {{ comment.content }}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+
+
+          <div id="pagination">
+            {% if paginate.previous %}
+            {{ '<' | link_to: paginate.previous.url }}
+            {% endif %}
+            {% for part in paginate.parts %}
+            {% if part.is_link %}
+            {{ part.title | link_to: part.url }}
+            {% else %}
+            {% if part.title == '&hellip;' %}
+            {{ part.title }}
+            {% else %}
+            <span class="current">{{ part.title }}</span>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% if paginate.next %}
+            {{ '>' | link_to: paginate.next.url }}
+            {% endif %}
+          </div>
+
+          <!-- Comment Form -->
+          <div id="comment-form">
+            {% form article %}
+            <h5>Leave a comment</h5>
+            <!-- Check if a comment has been submitted in the last request, and if yes display an appropriate message -->
+            {% if form.posted_successfully? %}
+            {% if blog.moderated? %}
+            <div class="notice">
+              Successfully posted your comment.<br />
+              It will have to be approved by the blog owner first before showing up.
+            </div>
+            {% else %}
+            <div class="notice">Successfully posted your comment.</div>
+            {% endif %}
+            {% endif %}
+
+            {% if form.errors %}
+            <div class="notice error">Not all the fields have been filled out correctly!</div>
+            {% endif %}
+
+
+            <dl>
+              <dt class="{% if form.errors contains 'author' %}error{% endif %}"><label for="comment_author">Your name</label></dt>
+              <dd><input type="text" id="comment_author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}input-error{% endif %}" /></dd>
+
+              <dt class="{% if form.errors contains 'email' %}error{% endif %}"><label for="comment_email">Your email</label></dt>
+              <dd><input type="text" id="comment_email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}input-error{% endif %}" /></dd>
+
+              <dt class="{% if form.errors contains 'body' %}error{% endif %}"><label for="comment_body">Your comment</label></dt>
+              <dd><textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="{% if form.errors contains 'body' %}input-error{% endif %}">{{form.body}}</textarea></dd>
+            </dl>
+
+            {% if blog.moderated? %}
+            <p class="hint">All blog comments are checked prior to publishing</p>
+            {% endif %}
+
+            <input type="submit" value="Post comment" />
+            {% endform %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+
+    {% endpaginate %}
+  </div>

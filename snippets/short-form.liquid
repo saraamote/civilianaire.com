@@ -1,0 +1,222 @@
+<form action="/cart/add" method="post" data-money-format="{{ shop.money_format }}" id="product-form-{{ product.id }}">
+  {% if product.options.size > 1 %}
+  <div class="select">
+    <select id="product-select-{{ product.id }}" name='id'>
+      {% for variant in product.variants %}
+      {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
+      <option value="{{ variant.id }}">{{ variant.title }}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+  {% for option in product.options %}
+    {% include 'swatch' with option %}
+  {% endfor %}
+  {% elsif product.options.size == 1 and shappify_qb_options_count > 1 %}
+  <div class="select">
+    <label>{{ product.options[0] }}</label>
+    <select id="product-select-{{ product.id }}" name='id'>
+      {% for variant in product.variants %}
+      {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
+      <option value="{{ variant.id }}">{{ variant.title }}</option>
+     {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+  {% for option in product.options %}
+    {% include 'swatch' with option %}
+  {% endfor %}
+  {% else %}
+  <div class="what-is-it">
+    {% if product.options.first != 'Title' %}
+    <label>{{ product.options.first }}:</label>
+    {% for variant in product.variants %}
+    {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
+    <span class="it-is">{{ variant.option1 | escape }}</span>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="product-variants"></div><!-- product variants -->
+  <input  type="hidden" id="{{ variant.id }}" name="id" value="{{ product.variants[0].id }}" />
+  {% endif %}
+  <div id="shappify-qty-msg"></div>
+  {% if product.available %}
+  <div class="product-add">
+
+    <h5>QUANTITY</h5>
+
+    <a class="down" field="quantity"><i class="icon-minus"></i></a>
+    <input min="1" type="text" name="quantity" class="quantity" value="1" />
+    <a class="up" field="quantity"><i class="icon-plus"></i></a>
+
+
+    <input type="submit" name="button" class="add" value="Add to Cart" />
+  </div>
+
+  <p class="add-to-cart-msg"></p>
+  {% endif %}
+
+</form>
+
+{% if shappify_qb_options_count > 1 or product.options.size > 1 %}
+<script type="text/javascript">
+
+  $(function() {
+
+    $product = $('#product-' + {{ product.id }});
+    new Shopify.OptionSelectors("product-select-{{ product.id }}", { product: {{ product | json }}, onVariantSelected: selectCallback });
+
+	{% assign found_one_in_stock = false %}
+    {% for variant in product.variants %}
+    {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
+    {% if variant.available and found_one_in_stock == false %}
+    {% assign found_one_in_stock = true %}
+    {% for option in product.options %}
+    jQuery('#product-{{ product.id }} .single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change');
+     {% endfor %}
+     {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    jQuery('.swatch :radio').change(function() {
+      var optionIndex = jQuery(this).parents('.swatch').attr('data-option-index');
+      var optionValue = jQuery(this).val();
+      jQuery('#product-{{ product.id }} .single-option-selector').eq(optionIndex).find('option').filter(function() { return jQuery(this).text() == optionValue }).parent().val(optionValue).trigger('change');
+    });
+
+  });
+
+</script>
+{% endif %}
+
+<form action="/cart/add" method="post" data-money-format="{{ shop.money_format }}" id="product-form-{{ product.id }}">
+
+  {% if product.options.size > 1 %}
+  <div class="select">
+    <select id="product-select-{{ product.id }}" name='id'>
+      {% for variant in product.variants %}
+      {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
+      <option value="{{ variant.id }}">{{ variant.title }}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+
+  {% for option in product.options %}
+
+    {% if option == 'Color' %}
+
+      {% include 'swatch' with 'Color' %}
+
+    {% endif %}
+
+  {% endfor %}
+
+  {% include 'dropdown' with 'Size' %}
+
+  {% elsif product.options.size == 1 and shappify_qb_options_count > 1 %}
+
+  <div class="select">
+    <label>{{ product.options[0] }}</label>
+    <select id="product-select-{{ product.id }}" name='id'>
+      {% for variant in product.variants %}
+      {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
+      <option value="{{ variant.id }}">{{ variant.title }}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+
+  {% for option in product.options %}
+
+    {% if option == 'Color' %}
+
+      {% include 'swatch' with 'Color' %}
+
+    {% endif %}
+
+  {% endfor %}
+
+  {% include 'dropdown' with 'Size' %}
+
+  {% else %}
+  <div class="what-is-it">
+    {% if product.options.first != 'Title' %}
+    <label>{{ product.options.first }}:</label>
+
+    {% for variant in product.variants %}
+    {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
+    <span class="it-is">{{ variant.option1 | escape }}</span>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="product-variants"></div><!-- product variants -->
+  <input  type="hidden" id="{{ variant.id }}" name="id" value="{{ product.variants[0].id }}" />
+  {% endif %}
+
+  {% if product.available %}
+  <!-- bespoke hidden for pop-up
+  <div class="product-add">
+
+    <h5>QUANTITY</h5>
+
+    <select id="quantity" name="quantity">
+      {% for i in (1..10) %}
+      <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select>
+
+
+    <input type="submit" name="button" class="bespoke-cart add" value="Add to Cart" />
+
+  </div>
+  -->
+
+  <script data-product="{{ product | json | escape }}" id="out-of-stock" src="http://setup.shopapps.io/out-of-stock/script/civilianaire.js">    </script>
+
+  <p class="add-to-cart-msg"></p>
+  {% endif %}
+
+</form>
+
+{% if shappify_qb_options_count > 1 or product.options.size > 1 %}
+<script type="text/javascript">
+
+  $(function() {
+
+    $product = $('#product-' + {{ product.id }});
+    new Shopify.OptionSelectors("product-select-{{ product.id }}", { product: {{ product | json }}, onVariantSelected: selectCallback });
+
+	{% assign found_one_in_stock = false %}
+    {% for variant in product.variants %}
+    {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
+    {% if variant.available and found_one_in_stock == false %}
+    {% assign found_one_in_stock = true %}
+    {% for option in product.options %}
+    jQuery('#product-{{ product.id }} .single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change');
+     {% endfor %}
+     {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    jQuery('.swatch :radio').change(function() {
+      var optionIndex = jQuery(this).parents('.swatch').attr('data-option-index');
+      var optionValue = jQuery(this).val();
+      jQuery('#product-{{ product.id }} .single-option-selector').eq(optionIndex).find('option').filter(function() { return jQuery(this).text() == optionValue }).parent().val(optionValue).trigger('change');
+    });
+
+  });
+
+</script>
+{% endif %}
+
+
+
+
+
+
+
+
+

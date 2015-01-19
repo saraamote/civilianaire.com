@@ -1,0 +1,66 @@
+<ul id="sort-me">
+
+{% if settings.sort-dropdown-a-check %}
+  <li class="clearfix filter">
+{% assign tags = settings.sort_a  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+<h4>{{ settings.sort-a }}</h4>
+    <ul>
+      {% for tag in tags %}
+      {% if current_tags contains tag %}
+    <li class="current">{{ tag | link_to_remove_tag: tag }}</li>
+    {% elsif collection.all_tags contains tag %}
+    <li>{{ tag | link_to_add_tag: tag }}</li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </li>
+{% endif %}
+
+
+
+{% if settings.sort-dropdown-b-check %}
+  <li class="clearfix filter">
+{% assign tags = settings.sort_b  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+<h4>{{ settings.sort-b }}</h4>
+    <ul>
+      {% for tag in tags %}
+      {% if current_tags contains tag %}
+    <li class="current">{{ tag | link_to_remove_tag: tag }}</li>
+    {% elsif collection.all_tags contains tag %}
+    <li>{{ tag | link_to_add_tag: tag }}</li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </li>
+{% endif %}
+
+{% if settings.sort-dropdown-c-check %}
+  <li class="clearfix filter">
+{% assign tags = settings.sort_c  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+<h4>{{ settings.sort-c }}</h4>
+    <ul>
+      {% for tag in tags %}
+      {% if current_tags contains tag %}
+    <li class="current">{{ tag | link_to_remove_tag: tag }}</li>
+    {% elsif collection.all_tags contains tag %}
+    <li>{{ tag | link_to_add_tag: tag }}</li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </li>
+{% endif %}
+
+</ul>
+
+
+<script type="text/javascript" charset="utf-8">
+//<![CDATA[
+jQuery(function() {
+  jQuery('ul#sortme li a').each(function() {
+    if (jQuery(this).attr('href')  ===  window.location.pathname) {
+      jQuery(this).addClass('current');
+    }
+  });
+});
+//]]>
+</script>

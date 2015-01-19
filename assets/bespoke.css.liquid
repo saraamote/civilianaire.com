@@ -1,0 +1,649 @@
+/*************************
+all pages
+*************************/
+
+/* adds border around page */
+
+#bespoke-container {
+
+  border: 8px solid #000;
+
+  margin: 60px 30px 30px 30px;
+
+}
+
+
+/*************************
+header
+*************************/
+
+#logo {
+
+  float: left;
+
+  margin: -55px 0 0 30px;
+
+  background-color: white
+
+}
+
+ul#main-nav {
+
+  max-width: 1050px;
+
+  background: none;
+
+  margin-top: -76px;
+
+  list-style: none;
+
+  text-align: left;
+
+  border-top: none;
+
+  border-bottom: none;
+
+  float: left;
+
+  margin-left: 140px;
+
+}
+
+/* removes black border on bottom */
+ul#main-nav li ul {
+  border-bottom: none;
+}
+
+/*************************
+slideshow
+*************************/
+
+.flex-direction-nav .flex-prev,
+.flex-direction-nav .flex-next {
+
+  border-radius: 100%;
+  background: #000;
+  color: #fff;
+  opacity: 1;
+
+}
+
+.flex-direction-nav .flex-prev {
+
+  left: 10px !important;
+  width: 35px;
+  height: 35px;
+
+}
+
+.flex-direction-nav .flex-next {
+
+  right: 10px !important;
+  width: 35px;
+  height: 35px;
+
+}
+
+.flex-direction-nav .flex-prev:before {
+
+  content: "\f104";
+  position: absolute;
+  top: -8px;
+  left: 5px;
+
+}
+
+.flex-direction-nav .flex-next:before {
+
+  content: "\f105";
+  position: absolute;
+  top: -8px;
+  right: 5px;
+
+}
+
+
+
+/*************************
+collection pages
+*************************/
+
+/* removes border below produts */
+#product-loop .product-index .product-info {
+
+  border-bottom: none;
+
+}
+
+
+
+/*************************
+product pages
+*************************/
+
+/* primary description element */
+
+#product-description {
+
+  text-align: left;
+
+}
+
+#lower-description {
+
+  margin: 0;
+
+}
+
+#product-description h1 {
+
+  margin: 0 0 20px 0;
+
+}
+
+/* price */
+
+.bespoke-price-details {
+
+  text-align: left;
+
+  font-weight: bold;
+
+}
+
+/* dropdowns */
+
+.product-add {
+
+  padding: 10px 0 0;
+
+  display: inline-block;
+
+}
+
+/* add to cart */
+
+.bespoke-cart.add {
+
+  margin: 0;
+
+  font-size: 13px;
+
+  font-weight: bold;
+
+  width: 225px !important;
+
+}
+
+input#notify-me {
+
+  margin-bottom: 0px;
+  padding: 15px 5px;
+  font-size: 10px;
+
+}
+
+/* removes breadcrumbs */
+
+#breadcrumb {
+
+  display: none;
+}
+
+.bespoke-product-details {
+
+  font-size: 14px;
+
+  line-height: 1.75em;
+
+}
+
+/* popups and social */
+
+#bespoke-product-footer {
+
+  text-align: center;
+
+}
+
+#bespoke-social-icons {
+  display: none;
+}
+
+ul#popups {
+
+  margin: 20px 0 20px 0;
+
+}
+
+/* move product thumbnails under main image */
+
+#bespoke-thumbnail-wrapper {
+  display: inline-block;
+
+  padding-top: 15px;
+
+}
+
+#bespoke-thumbnails {
+  padding: 10px;
+}
+
+/* previous and next buttons */
+
+#back-forth {
+
+  position: relative;
+  max-width: 225px;
+
+}
+
+#back-forth a {
+
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 10px auto -20px auto;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 14px;
+
+}
+
+.prev-prod {
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+}
+
+.next-prod {
+
+  position: absolute;
+  right: 0;
+  top: 0;
+
+
+}
+
+
+/* lightbox arrows */
+
+.fancybox-nav span {
+
+  visibility: visible;
+  border-radius: 100%;
+
+}
+
+
+/*************************
+stores blog tempelate
+*************************/
+
+/* removes black border */
+.article-info {
+
+  border-bottom: none;
+
+}
+
+.article-info h2 {
+
+  letter-spacing: initial;
+
+  margin-bottom: 10px;
+
+  text-align: left;
+
+}
+
+.article-content {
+
+  margin-top: 10px;
+
+  margin-bottom: 10px;
+
+  color: black;
+
+}
+
+/*************************
+media queries
+*************************/
+/* stops nav running together on screen resize*/
+
+@media (min-width: 1170px) {
+
+  ul#main-nav li a {
+
+    padding: 0 17px;
+
+  }
+
+}
+
+@media (min-width: 1061px) and (max-width: 1169px) {
+
+  ul#main-nav li a {
+
+    padding: 0 12px;
+
+  }
+
+}
+
+@media (min-width: 980px) and (max-width: 1060px) {
+
+  ul#main-nav li a {
+
+    padding: 0 10px;
+
+    font-size: 11px;
+
+  }
+
+  ul#main-nav li ul li a {
+    font-size: 10px;
+  }
+
+}
+
+@media (min-width: 910px) and (max-width: 979px) {
+
+  ul#main-nav li a {
+
+    padding: 0 8px;
+
+    font-size: 11px;
+
+  }
+
+  ul#main-nav li ul li a {
+    font-size: 11px;
+  }
+
+}
+
+@media (min-width: 855px) and (max-width: 909px) {
+
+  ul#main-nav li a {
+
+    padding: 0 7px;
+
+    font-size: 10px;
+
+  }
+
+  ul#main-nav li ul li a {
+    font-size: 10px;
+  }
+
+}
+
+@media (min-width: 810px) and (max-width: 854px) {
+
+  ul#main-nav li a {
+
+    padding: 0 5px;
+
+    font-size: 10px;
+
+  }
+
+  ul#main-nav li ul li a {
+    font-size: 11px;
+  }
+
+}
+
+@media (min-width: 100px) and (max-width: 810px) {
+  .dl-menuwrapper {
+    display: block! important;
+    top: 10px;
+    left: 10px;
+  }
+
+  ul#main-nav {
+    display: none;
+  }
+
+  #bespoke-container {
+    border: none;
+    margin: 80px 0 30px 0;
+
+  }
+
+  ul#social-icons, ul#social-icons li {
+    padding: 0 5px;
+  }
+
+  ul#cart, ul#cart li {
+    padding: 0 5px;
+  }
+
+  #social-icons {
+    display: none;
+  }
+
+  #bespoke-social-icons {
+    display: block;
+    width: 50%;
+    margin: 2% 25%;
+  }
+
+  #bespoke-social-icons li{
+  list-style: none;
+  display: inline;
+  padding: 5px;
+  opacity: .75;
+}
+
+
+
+}
+
+/*************************
+updates
+*************************/
+
+/* fix header icons */
+
+@media screen and (max-width: 980px) and (min-width: 740px) {
+  ul#social-icons, ul#social-icons li {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* mobile only updates */
+
+@media only screen and (max-device-width: 480px) {
+  header .icon-2x {
+    font-size: 16px! important;
+  }
+}
+
+/* desktop updates */
+
+.add {
+  width: 75%! important;
+}
+
+.up {
+  border: none;
+}
+
+.down {
+  border: none;
+}
+
+/*************************
+recommendify app
+*************************/
+/* styles title */
+
+.recommendify-panel-title-container h2 {
+
+  text-transform: uppercase;
+  text-align: center !important;
+  padding: 20px !important;
+
+}
+
+
+/* fixed width on mobile */
+
+@media only screen and (max-device-width: 480px) {
+
+  .recommendify-cell-wrapper {
+
+    width: 100% !important;
+    height: auto !important;
+
+  }
+
+}
+
+/*************************
+newsletter popup
+*************************/
+
+.box-title-headline {
+
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px;
+  margin: 5px 0 0 0;
+
+}
+
+.box-title {
+
+  font-size: 14px;
+
+}
+
+.box-title-sub {
+
+  font-size: 13px;
+
+}
+
+/* email input */
+
+#mce-EMAIL {
+
+  margin: 0;
+
+}
+
+/* join button */
+
+#mc-embedded-subscribe {
+
+  background: #FFD700;
+  color: #000;
+  font-weight: bolder;
+  font-size: 15px;
+  margin: 5px;
+
+}
+
+/*************************
+custom tumblr blog
+*************************/
+
+.tumblr-custom {
+
+  text-align: center;
+
+}
+
+
+.tumblr-custom .share-icons {
+
+  text-align: right !important;
+  display: block;
+
+}
+
+.tumblr-custom .article-content {
+
+  border-bottom: 2px solid #eeeeee;
+  padding: 10px 0 60px 0;
+  max-width: 500px;
+  margin: auto;
+
+}
+
+.tumblr-custom .article-content img {
+
+  width: 500px;
+
+}
+
+
+.tumblr-custom .article-content p {
+
+  font-family: 'Montserrat', sans-serif !important;
+  text-align: left;
+
+}
+
+
+.tumblr-custom .article-content blockquote {
+
+    border-left: 3px solid black;
+    padding-left: 10px;
+    margin: 15px;
+
+}
+
+
+
+.tumblr-custom .article-content  blockquote p,
+.tumblr-custom .article-content blockquote p strong,
+.tumblr-custom .article-content blockquote p strong em {
+
+  font-family: 'Montserrat', sans-serif !important;
+  font-style: normal;
+  line-height: 17px;
+  text-align: left;
+  font-weight: 100;
+  font-size: 12px;
+  color: #000;
+  padding: 0;
+
+}
+
+#tumblr-blog-sidebar {
+
+  text-align: right;
+  max-width: 200px;
+  float: right;
+
+}
+
+#tumblr-blog-sidebar h2 {
+
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  margin-right: 15px;
+  font-weight: 500;
+  font-size: 13px;
+
+}
+
+#tumblr-blog-sidebar ul#social-icons {
+
+  text-align: right;
+
+}
+
+/* promotional text color */
+.promo-red {
+
+  color: #ba2323;
+
+}

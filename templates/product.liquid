@@ -1,0 +1,182 @@
+<!-- Bold Apps: Quantity Breaks -->
+{% include 'shappify-qb-no-select' %}
+<div id="product-{{ product.id }}">
+
+  <!-- For Mobile -->
+  <div id="mobile-product" class="desktop-12 mobile-3">
+    <div class="flexslider">
+      <ul class="slides">
+        {% for image in product.images %}
+        <li><img src="{{ image.src | product_img_url: '1024x1024' }}" alt="{{ image.alt | escape }}"></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- For Desktop -->
+
+  <div id="product-photos" class="desktop-6 mobile-3">
+
+    {% for image in product.images %}
+
+    {% if forloop.first %}
+
+    <div id="bespoke-active-wrapper">
+
+      <div id="bigimage" class="desktop-10">
+
+        <img id="img_01" src="{{ image | product_img_url: '1024x1024' }}" data-zoom-image="{{ image | product_img_url: '2048x2048' }}" alt='{{ product.title }}' title="{{ product.title }}"/>
+
+      </div>
+
+    </div>
+
+    {% endif %}
+
+    <div id="bespoke-thumbnail-wrapper">
+
+      <div id="bespoke-thumbnails">
+
+        <a href="#" data-image="{{ image | product_img_url: '1024x1024' }}" data-zoom-image="{{ image | product_img_url: '2048x2048' }}">
+
+          <img id="img_01" src="{{ image | product_img_url: 'compact' }}" alt="{{ image.alt }}"/>
+
+        </a>
+
+      </div>
+
+    </div>
+
+    {% endfor %}
+
+  </div>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      //initiate the plugin and pass the id of the div containing gallery images
+      $("#img_01").elevateZoom({gallery:'product-photos', cursor: 'pointer', galleryActiveClass: 'active', borderColour: '#eee', borderSize: '1' });
+
+      //pass the images to Fancybox
+      $("#img_01").bind("click", function(e) {
+        var ez =   $('#img_01').data('elevateZoom');
+        $.fancybox(ez.getGalleryList());
+        return false;
+      });
+
+    });
+  </script>
+
+
+
+  <div id="product-right" class="desktop-5 mobile-3">
+    <div id="product-description">
+      <h1>{{ product.title | escape }}</h1>
+      {% if settings.subtitle %}<p>{{ page_title }}</p>{% endif %}
+
+        <div id="lower-description" class="desktop-8 desktop-push-2 tablet-6 mobile-3">
+    <div class="rte">
+        <section class="bespoke-product-details">
+
+          {{ product.description }}
+
+        </section>
+      <section class="bespoke-price-details">
+        <p id="product-price">
+          {% if product.available %}
+          {% if product.compare_at_price > product.price %}
+          <span class="product-price" itemprop="price">{{ product.price | money }}</span>&nbsp;<span class="compare-price">{{ product.compare_at_price | money }}</span>
+          {% else %}
+          <span class="product-price" itemprop="price">{{ product.price | money }}</span>
+          {% endif %}
+          {% else %}
+          <span class="product-price" itemprop="price">Sold Out</span>
+          {% endif %}
+        </p>
+      </section>
+      </div>
+  </div>
+      {% include 'custom-short-form' %}
+
+      <div class="desc">
+
+      </div>
+    </div>
+
+    {% if collection %}
+  <div>
+
+    <div id="back-forth">
+      {% if collection.previous_product %}
+      <span class="prev-prod">
+        {{ '< Previous' | link_to: collection.previous_product }}
+        </span>
+      {% endif %}
+
+      {% if collection.next_product %}
+      <span class="next-prod">
+        {{ 'Next >' | link_to: collection.next_product }}
+      </span>
+      {% endif %}
+    </div>
+  </div>
+
+
+  </div>
+
+  <div class="clear"></div>
+
+    <div id="bespoke-product-footer">
+
+  {% if template == 'product' %}
+  {% if settings.popups %}
+  <ul id="popups">
+  <li class="first"><a href="#pop-one" class="fancybox">{{ settings.popup-one-title }}</a></li>
+  {% if settings.popup-2 %}<li><a href="#pop-two" class="fancybox">{{ settings.popup-two-title }}</a></li>{% endif %}
+  {% if settings.popup-3 %}<li><a href="#pop-three" class="fancybox">{{ settings.popup-three-title }}</a></li>{% endif %}
+  {% if settings.popup-4 %}<li class="last"><a href="#pop-four" class="fancybox">{{ settings.popup-four-title }}</a></li>{% endif %}
+  </ul>
+  <div id="pop-one" style="display: none">{{ pages.[settings.popup-one].content }}</div>
+  <div id="pop-two" style="display: none">{{ pages.[settings.popup-two].content }}</div>
+  <div id="pop-three" style="display: none">{{ pages.[settings.popup-three].content }}</div>
+  <div id="pop-four" style="display: none">{% include 'question' %}</div>
+  {% endif %}
+  {% endif %}
+
+  {% include 'social' with product %}
+
+  </div>
+
+  <div class="clear"></div>
+
+  <script>
+    jQuery.getJSON('{{ collection.next_product | append: '.js' }}', function(product) {
+      jQuery('#next-product-image').attr('src', product.images[0].replace(/(\.jpg|\.png|\.jpeg|\.gif)/, '_small$1'));
+    });
+    jQuery.getJSON('{{ collection.previous_product | append: '.js' }}', function(product) {
+      jQuery('#previous-product-image').attr('src', product.images[0].replace(/(\.jpg|\.png|\.jpeg|\.gif)/, '_small$1'));
+    });
+  </script>
+
+
+  {% endif %}
+
+  {% if collection %}
+  {% include 'related-products' %}
+  {% endif %}
+
+  <div class="clear"></div>
+
+
+<div id="recommendify-custom-products"
+shop="{{ shop.domain }}" product="{{ product.id }}"></div>
+
+<div id="recommendify-product-view"
+shop="{{ shop.domain }}" product="{{ product.id }}"></div>
+
+<div id="recommendify-recent-products"
+shop="{{ shop.domain }}" product="{{ product.id }}"></div>
+
+</div>

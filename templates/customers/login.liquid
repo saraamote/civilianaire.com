@@ -1,0 +1,133 @@
+
+{% layout settings.customer_layout %}
+	<div id="customer-wrapper" class="desktop-12 mobile-3">
+
+		<div id="customer-background">
+			<div id="template" class="desktop-5 mobile-3">
+
+  				{% comment %}
+    			Guest Login form for shops with optional customer accounts. This form is displayed only when users click on the checkout link
+    			on the cart page.
+  				{% endcomment %}
+
+  				{% if shop.checkout.guest_login %}
+  				<div id="guest" class="desktop-12 mobile-3">
+    				<div class="template_header">
+      					<h2>Checkout as a guest</h2>
+      					<p>Don't have an account yet?</p>
+      					<p>Don't worry you can set one up after your purchase and have quick access to previous orders and saved addresses for faster shopping next time round.</p>
+    				</div>
+    				{% form 'guest_login' %}
+      				<input class="secondary button" type="submit" value="Continue as Guest" />
+    				{% endform %}
+  				</div>
+  				{% endif %}
+
+				<div class="clear"></div>
+
+  				<div id="customer" class="desktop-12 mobile-3">
+    				<div class="template_header">
+      					<h2>Customer Login</h2>
+    				</div>
+    				{% form 'customer_login' %}
+      				{{ form.errors | default_errors }}
+
+      				<div id="login_email" class="clearfix large_form">
+        				<label for="customer_email" class="login">Email Address</label>
+        				<input type="email" value="" name="customer[email]" id="customer_email" class="large" size="30" />
+      				</div>
+      				{% if form.password_needed %}
+        			{% comment %}
+          			Customer Account Login
+        			{% endcomment %}
+        			<div id="login_password" class="clearfix large_form">
+          				<label for="customer_password" class="login">Password</label>
+          				<input type="password" value="" name="customer[password]" id="customer_password" class="large password" size="16" />
+          				<div id="forgot_password">
+            				<a href="#" onclick="showRecoverPasswordForm();return false;">Forgot your password?</a>
+          				</div>
+        			</div>
+      				{% endif %}
+      				<div class="action_bottom">
+        				<input class="secondary button" type="submit" value="SIGN IN" />
+      				</div>
+    				{% endform %}
+  				</div>
+
+  				{% comment %}
+    			Recover Password Form
+  				{% endcomment %}
+  				<div id="recover-password" style='display:none'>
+    				<div class="template_header">
+      					<h2>Reset Password</h2>
+      					<p class="note">We will send you an email to reset your password.</p>
+    				</div>
+    				{% form 'recover_customer_password' %}
+      				{{ form.errors | default_errors }}
+      				<div id="recover_email" class="clearfix large_form">
+        				<label for="email" class="large">Email</label>
+        				<input type="email" value="" size="30" name="email" id="recover-email" class="large" />
+      				</div>
+      				<div class="action_bottom">
+        				<input class="secondary button" type="submit" value="SUBMIT" />
+        				<span class="note">or <a href="#" onclick="hideRecoverPasswordForm();return false;">Cancel</a></span>
+      				</div>
+    				{% endform %}
+  				</div>
+  			</div>
+
+			      <!-- Create Customer -->
+				  <div id="create-customer" class="desktop-push-2 desktop-5 mobile-3">
+				    <div class="template_header">
+				      <h2 class="title">Create Account</h2>
+				    </div>
+
+				    {% form 'create_customer' %}
+				      {{ form.errors | default_errors }}
+
+
+				      <div id="first_name" class="clearfix large_form">
+				        <label for="first_name" class="login">First Name</label>
+				        <input type="text" value="" name="customer[first_name]" id="first_name" class="large" size="30" />
+				      </div>
+
+				      <div id="last_name" class="clearfix large_form">
+				        <label for="last_name" class="login">Last Name</label>
+				        <input type="text" value="" name="customer[last_name]" id="last_name" class="large" size="30" />
+				      </div>
+
+				      <div id="email" class="clearfix large_form">
+				        <label for="email" class="login">Email Address</label>
+				        <input type="email" value="" name="customer[email]" id="email" class="large" size="30" />
+				      </div>
+
+				      <div id="password" class="clearfix large_form">
+				        <label for="password" class="login">Password</label>
+				        <input type="password" value="" name="customer[password]" id="password" class="large password" size="30" />
+				      </div>
+
+
+				      <div class="action_bottom">
+				        <input class="secondary button" type="submit" value="CREATE"/>
+				      </div>
+				    {% endform %}
+				  </div><!-- /#create-customer -->
+
+		</div>
+	</div>
+
+<script type="text/javascript">
+  function showRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'inline-block';
+    document.getElementById('customer').style.display='none';
+  }
+
+  function hideRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'none';
+    document.getElementById('customer').style.display = 'inline-block';
+  }
+
+  if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+</script>
+
+

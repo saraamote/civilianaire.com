@@ -1,0 +1,109 @@
+<div id="shopping-cart" class="desktop-12 tablet-6 mobile-3">
+
+  <h2>My Cart</h2>
+  <div id="shappify-qty-cart-msg"></div>
+  {% if cart.item_count == 0 %}
+  <p>Your Bag is currently empty.</p>
+
+
+  {% else %}
+  <script type="text/javascript">
+    function remove_item(id) {
+      document.getElementById('updates_'+id).value = 0;
+      document.getElementById('cartform').submit();
+    }
+  </script>
+  <form action="/cart" method="post" id="cartform">
+
+    <table class="desktop-9 tablet-6 mobile-3">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th style="text-align: center;">Qty</th>
+          <th style="text-align: center;">Delete</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart.items %}
+        <tr>
+          <td>
+            <div class="cart-item">
+              <div class="cart-image">
+                <a href="{{ item.product.url }}" title="{{ item.product.title | escape }}">
+                  {% assign found = false %}
+                  {% for img in item.product.images %}
+                  {% if found == false and item.variant.title contains img.alt %}
+                  <img src="{{ img | product_img_url: 'compact' }}"  alt="{{ item.alt | escape }}" />
+                  {% assign found = true %}
+                  {% endif %}
+                  {% endfor %}
+                  {% if found == false %}
+                  <img src="{{ item.product.featured_image | product_img_url: 'compact' }}"  alt="{{ item.product.featured_image.alt | escape }}" />
+                  {% endif %}
+                </a>
+              </div>
+              <div class="cart-title">
+                {% if settings.vendor %}<p>{{ item.vendor }}</p>{% endif %}
+                <p>{{ item.title }}</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p>{{ item.price | money }}{% if item.variant.compare_at_price > item.price %}<br /><del>{{ item.variant.compare_at_price | money }}</del>{% endif %}</p>
+          </td>
+          <td>
+            <input type="text" class="cart-qty" size="4" name="updates[{{ item.id }}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onfocus="this.select();" style="max-width: 50px; text-align: center; margin: 0 auto 10px; "/>
+          </td>
+          <td style="text-align: center">
+            <p><a href="#" onclick="remove_item({{ item.variant.id }}); return false;"><i class="icon-trash icon-2x"></i></a></p>
+          </td>
+          <td>
+            <p>{{ item.line_price | money }}</p>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    <div id="basket-right" class="desktop-3 tablet-6 mobile-3">
+      <h4>Subtotal {{ cart.total_price | money }}</h4>
+      <p><a href="/collections">Continue Shopping</a></p>
+      <input type="submit" name="update" id="update-cart" value="UPDATE" class="button" />
+      <input type="submit" name="checkout" id="checkout" value="CHECKOUT" class="button" />
+      <div class="clear"></div>
+      {% if additional_checkout_buttons %} {{ content_for_additional_checkout_buttons }} {% endif %}
+
+      {% if settings.american_express %}<img src="{{ 'amex.png' | asset_url }}"/>{% endif %}
+      {% if settings.dankort %}<img src="{{ 'dankort.png' | asset_url }}"/>{% endif %}
+      {% if settings.diners %}<img src="{{ 'diners.png' | asset_url }}"/>{% endif %}
+      {% if settings.discover %}<img src="{{ 'discover.png' | asset_url }}"/>{% endif %}
+      {% if settings.forbru %}<img src="{{ 'forbru.png' | asset_url }}"/>{% endif %}
+      {% if settings.google %}<img src="{{ 'googlecheckout.png' | asset_url }}">{% endif %}
+      {% if settings.jcb %}<img src="{{ 'jcb.png' | asset_url }}">{% endif %}
+      {% if settings.maestro %}<img src="{{ 'maestro.png' | asset_url }}"/>{% endif %}
+      {% if settings.mastercard %}<img src="{{ 'mastercard.png' | asset_url }}"/>{% endif %}
+      {% if settings.paypal %}<img src="{{ 'paypa.png' | asset_url }}"/>{% endif %}
+      {% if settings.solo %}<img src="{{ 'solo.png' | asset_url }}"/>{% endif %}
+      {% if settings.visa %}<img src="{{ 'visa.png' | asset_url }}"/>{% endif %}
+    </div>
+
+
+    <div id="cart-notes" class="desktop-12 mobile-3">
+      <label for="note"><strong>Please leave special instructions below:</strong></label>
+      <textarea name="note" id="note" rows="5" cols="60">{{cart.note}}</textarea>
+    </div>
+
+
+  </form>
+  {% endif %}
+
+  <div id="looked-at" class="desktop-12 mobile-half">
+
+<div id="recommendify-cart" shop="{{ shop.domain }}"
+cart="{% for item in cart.items %}{{ item.product.id }},{% endfor %}"></div>
+
+</div>
+
